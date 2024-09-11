@@ -17,6 +17,7 @@ export const crearUsuario = (req: Request, res: Response) => {
 
 export const loginUsuario = (req: Request, res: Response) => {
   const { email, password } = req.body;
+
   res.json(
     { 
       ok: true,

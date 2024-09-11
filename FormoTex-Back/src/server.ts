@@ -3,6 +3,8 @@ import cors from 'cors'
 import morgan from "morgan";
 import { router } from './routes/routes';
 
+import { dbConnection } from './db/config';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,16 +12,19 @@ class Server {
 
     private app: Application;
     private port: number;
-    private app_host: string;
 
     constructor() {
 
         this.app = express();
         this.port = parseInt(process.env.APP_PORT || '3000', 10); // Convertir a número y proporcionar valor predeterminado
-        this.app_host = process.env.APP_HOST || "localhost";
+        this.dbConnect();
 
         this.middlewares();
         this.routes();
+    }
+
+    private async dbConnect(){
+        await dbConnection()
     }
 
     private middlewares(){
