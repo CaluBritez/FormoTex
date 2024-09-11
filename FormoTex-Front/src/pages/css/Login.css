@@ -31,6 +31,7 @@
   border: 2px solid #F6DEB8;
   border-radius: 5px;
   background-color: #443E46;
+  box-shadow: 0px 4px 10px rgba(246, 222, 184, 0.8); /* Sombra con color #F6DEB8 */
 }
 #box-logo {
   width: 100%;
