@@ -1,16 +1,17 @@
 import { Request, Response } from 'express';
+import { User } from '../models/model.user';
 
-export const crearUsuario = (req: Request, res: Response) => {
+export const crearUsuario = async(req: Request, res: Response) => {
 
-  const { name, email, password } = req.body;
+  const user = new User(req.body);
+
+  await user.save();
 
   res.status(201).json(
     { 
       ok: true,
       message: 'Se ha creado el usuario',
-      name,
-      email,
-      password
+      user
     });
   
 }
