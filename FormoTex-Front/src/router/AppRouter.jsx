@@ -4,25 +4,23 @@ import { Login } from '../pages/Login.jsx';
 import { Register } from '../pages/Register.jsx';
 
 export const AppRouter = () => {
-
-  const authStatus = 'not-authenticated'
-
+  
+  const authStatus = 'not-authenticated'; // Cambia este valor para probar
+  
   return (
-
     <Routes>
-      {
-
-        ( authStatus === 'not-authenticated' )
-          ?<Route path="/auth/*" element={<Login />} />
-          :<Route path="/*" element={<Home />} />
-
-      }
-      <Route path="/auth/register" element={<Register />} />
-
-      <Route path="/*" element={ <Navigate to="/auth/login" />} />
-
-
-
+      { authStatus === 'not-authenticated' ? (
+        <>
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
+          <Route path="/*" element={<Navigate to="/auth/login" />} />
+        </>
+      ) : (
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<Navigate to="/" />} />
+        </>
+      )}
     </Routes>
-  )
+  );
 }
