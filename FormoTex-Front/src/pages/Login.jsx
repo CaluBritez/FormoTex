@@ -5,7 +5,6 @@ export const Login = () => {
     <>
       <div id='box-body-main'>
         <div id='box-main-login'>
-
           <div id='box-logo'>
             <h2>FormoTex</h2>
           </div>
@@ -27,8 +26,12 @@ export const Login = () => {
                   id="password"
                 />
               </div>
+              <div id='box-registrarse'>
+                <p>¿No tienes cuenta? <a href="/register">Crear cuenta</a></p>
+                
+              </div>
               <div id='box-form-button'>
-                <button>Ingresar</button>
+                <button className='boton-rosa'>Ingresar</button>
               </div>
             </form>
           </div>

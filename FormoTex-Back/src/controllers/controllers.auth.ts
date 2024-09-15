@@ -3,6 +3,7 @@ import { User } from '../models/model.user';
 import bcrypt from 'bcryptjs';
 import { generateJWT } from '../helpers/jwt';
 
+// -------  CREAR USUARIO  ---------------
 export const crearUsuario = async(req: Request, res: Response) => {
 
   const { email, password } = req.body;
@@ -21,7 +22,7 @@ export const crearUsuario = async(req: Request, res: Response) => {
     }
     user = new User(req.body);
 
-    // Encriptar contrasena
+    // Encriptar contraseña
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
 
@@ -51,6 +52,7 @@ export const crearUsuario = async(req: Request, res: Response) => {
   }
 }
 
+// -------  LOGEAR USUARIO  ---------------
 export const loginUsuario = async(req: Request, res: Response) => {
 
   const { email, password } = req.body;
@@ -105,11 +107,27 @@ export const loginUsuario = async(req: Request, res: Response) => {
 
 }
 
-export const revalidarToken = (req: Request, res: Response) => {
+// -------  REVALIDAR TOKEN  ---------------
+export const revalidarToken =  async(req: Request, res: Response) => {
+
+  const uid = req.uid as string;
+  const name = req.name as string;
+
+  console.log('uid: ', uid);
+  console.log('name: ', name);
+  
+
+  // Generar el JWT
+  
+  const token = await generateJWT(uid, name)
+  console.log('token: ', token);
+  
 
   res.json(
     { 
       ok: true,
-      message: 'renew'
+      uid: uid,
+      name: name,
+      token: token
     });
 }

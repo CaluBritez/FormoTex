@@ -5,7 +5,7 @@ import { Register } from '../pages/Register.jsx';
 
 export const AppRouter = () => {
 
-  const authStatus = 'authenticated'
+  const authStatus = 'not-authenticated'
 
   return (
 

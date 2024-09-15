@@ -1,3 +1,13 @@
+/* PALETA RETRO
+
+#443E46 gris fondo
+#F6DEB8 beije
+#908CA4 celesteAzulado
+#57659E Azul
+#C57284 rosa
+#FF5B60 ROJO
+
+*/
 body {
   margin: 0;
   min-width: 320px;
@@ -5,4 +15,21 @@ body {
 }
 div,form {
   box-sizing: border-box;
+}
+.boton-rosa {
+  background-color: #C57284;
+  color: #F6DEB8;
+  font-weight: bold;
+  height: 2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border: 1px solid #F6DEB8;
+  /*box-shadow: 0px 4px 10px rgba(246, 222, 184, 0.8);*/
+  /*box-shadow: 0px 4px 10px rgba(197, 114, 132, 0.8);*/
+}
+.boton-rosa:hover {
+  background-color: #443E46;
+  box-shadow: 0px 4px 10px rgba(246, 222, 184, 0.8); /* Sombra con color #F6DEB8 */
 }

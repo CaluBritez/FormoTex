@@ -95,12 +95,3 @@
   align-items: center;
   border-radius: 5px;
 }
-.box-form-button button {
-  width: 80%;
-  height: 2rem;
-  border-radius: 5px;
-  border: none;
-  background-color: #F6DEB8;
-  color: #443E46;
-  cursor: pointer;
-}
