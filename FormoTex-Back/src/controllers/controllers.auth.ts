@@ -130,4 +130,18 @@ export const revalidarToken =  async(req: Request, res: Response) => {
       name: name,
       token: token
     });
-}
+};
+
+// -------  MOSTRAR USUARIOS  ---------------
+
+export const mostrarUsuarios = async(req: Request, res: Response) => {
+
+  try {
+    const usuarios = await User.find();
+    res.json(usuarios);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error al obtener los usuarios' });
+  }
+};
