@@ -1,6 +1,10 @@
 import './css/Register.css'
+import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 import { useForm } from '../hooks/useForm.js';
+import {useAuthStore} from '../hooks/useAuthStore.js';
+
 
 const registerForm = {
   name: '',
@@ -13,11 +17,24 @@ const registerForm = {
 export const Register = () => {
 
   const { name, email, password, passwordRepeat, onInputChange } = useForm(registerForm);
+  const { errorMessage, startRegister} = useAuthStore();
 
   const registerSubmit = (event) => {
+
     event.preventDefault();
-    console.log({ name, email, password, passwordRepeat });
+
+    if(password !== passwordRepeat){
+      Swal.fire('Error en la autenticación', 'Las contraseñas no son iguales', 'error')
+      return;
+    }
+    startRegister({ name: name, email: email, password: password });
   }
+  useEffect(() => {
+    if(errorMessage !== undefined){
+      Swal.fire('Error al intentar registrar', errorMessage, 'error')
+    }
+  
+  }, [errorMessage])
 
   return (
     <>

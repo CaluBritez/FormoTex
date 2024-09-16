@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import formotexApi from '../api/formotexApi.js';
+import { onChecking, onLogin, onLogout, clearErrorMessage } from '../store/auth/authSlice.js';
 
 
 export const useAuthStore = () => {
@@ -8,19 +9,74 @@ export const useAuthStore = () => {
   const dispatch = useDispatch();
 
   const startLogin = async( {email, password} ) => {
-    console.log({email, password});
+    
+    dispatch( onChecking() );
 
     try { 
-      const response = await formotexApi.post('/auth/login', { email, password });
-      console.log({response});
+      const { data } = await formotexApi.post('/auth/login', { email, password });
+
+      localStorage.setItem('token', data.token );
+      localStorage.setItem('token-init-date', new Date().getTime() );
+
+      dispatch( onLogin({ name: data.name, uid: data.uid }) );
       
     
     } catch (error) {
-      console.log({error});
+      dispatch( onLogout('Credenciales incorrectas') );
+      setTimeout(() => {
+        dispatch( clearErrorMessage() );
+      }, 10);
       
       
     }
   }
+  // INICIAR REGISTRO
+  const startRegister = async( {name, email, password} ) => {
+
+    dispatch( onChecking() );
+
+    try {
+      const { data } = await formotexApi.post('/auth/register', { name, email, password });
+      console.log(data);
+
+      localStorage.setItem('token', data.token );
+      localStorage.setItem('token-init-date', new Date().getTime() );
+      dispatch( onLogin({ name: data.name, uid: data.uid }) );
+
+    } catch (error) {
+        dispatch( onLogout(error.response.data?.message ||error.response.data.errors.password?.msg || 'Error al registrar') );
+        setTimeout(() => {
+          dispatch( clearErrorMessage() );
+        }, 10);
+    }
+  }
+
+  // Chekear autenticación
+  const checkAuthToken = async() => {
+    const token = localStorage.getItem('token');
+    if ( !token ) return dispatch( onLogout() );
+    try {
+
+      const { data } = await formotexApi.get('/auth/renew');
+      console.log(data);
+
+      localStorage.setItem('token', data.token );
+      localStorage.setItem('token-init-date', new Date().getTime() );
+      dispatch( onLogin({ name: data.name, uid: data.uid }) );
+
+    } catch (error) {
+      localStorage.clear();
+      dispatch( onLogout() );
+    }}
+  
+  // LOGOUT
+  const startLogout = () => {
+    localStorage.clear();
+    console.log('Logout pasa por aqui');
+    
+    dispatch( onLogout() );
+  }
+
 
   return (
     {
@@ -28,7 +84,10 @@ export const useAuthStore = () => {
       user,
       errorMessage,
 
-      startLogin
+      startLogin,
+      startRegister,
+      startLogout,
+      checkAuthToken
     }
   )
 }
