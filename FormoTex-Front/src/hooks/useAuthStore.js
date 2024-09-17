@@ -58,7 +58,6 @@ export const useAuthStore = () => {
     try {
 
       const { data } = await formotexApi.get('/auth/renew');
-      console.log(data);
 
       localStorage.setItem('token', data.token );
       localStorage.setItem('token-init-date', new Date().getTime() );

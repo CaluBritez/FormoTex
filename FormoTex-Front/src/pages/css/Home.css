@@ -1,3 +1,14 @@
+/* PALETA RETRO
+
+#443E46 gris fondo
+#F6DEB8 beije
+#908CA4 celesteAzulado
+#57659E Azul
+#C57284 rosa
+#FF5B60 ROJO
+
+*/
+
 #box-body {
     width: 100%;
     height: 100vh;
@@ -9,12 +20,13 @@
     align-items: center;
 }
 #box-onlogin {
-    background-color: aqua;
     width: 100%;
     height: auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    background-color: #908CA4;
+    border-bottom: 2px solid black;
 }
 #box-onlogin h1{
     margin-left: 1rem;
@@ -22,31 +34,104 @@
 }
 #box-container-products {
     width: 100%;
-    height: 30rem;
-    background-color: blueviolet;
+    height: auto;
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
 }
 #box-add-product {
     width: 100%;
     height: auto;
-    background-color: brown;
     padding-left: 1rem;
 }
 #box-products {
     width: 100%;
-    height: 20rem;
-    background-color: chartreuse;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 #box-product {
-    width: 14rem;
-    height: 15rem;
+    width: 16rem;
+    height: auto;
     border: 2px solid black;
     border-radius: 5px;
     margin-left: 1rem;
-    margin-top: 1rem;
+    box-shadow: 0px 4px 10px rgba(246, 222, 184, 0.8); /* Sombra con color #F6DEB8 */
+    background-color: #F6DEB8;
 }
 #box-product p{
-    background-color: green;
     padding-left: 0.5rem;
+}
+
+/* Modal */
+
+.modalMostrarActivo {
+    display: block;
+    position: fixed; /* Fijo en relación al viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+    z-index: 999; /* Debajo del modal pero encima de otros elementos */
+}
+.modalMostrarInactivo {
+    display: none;
+}
+#box-modal {
+    position: fixed; /* Fijo en relación al viewport */
+    top: 50%; /* Centrado verticalmente */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translate(-50%, -50%); /* Centrando */
+    z-index: 1000; /* Asegurando que esté encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para efecto de profundidad */
+    border-radius: 8px; /* Bordes redondeados */
+    width: 40rem;
+    height: auto;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px solid black;
+    background-color: #908CA4;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+#box-title-modal {
+    width: 100%;
+    height: auto;
+}
+#box-title-modal h2{
+    margin: 0;
+    padding-left: 1rem;
+
+}
+#box-close-modal {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#box-close-modal button{
+    margin-right: 1rem;
+}
+.div-box-form-modal {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 1rem;
 }
