@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import formotexApi from '../api/formotexApi.js';
 import { onChecking, onLogin, onLogout, clearErrorMessage } from '../store/auth/authSlice.js';
+import {clearProducts} from '../store/product/productSlice.js';
 
 
 export const useAuthStore = () => {
 
   const { status, user, errorMessage } = useSelector( state => state.auth );
+  
   const dispatch = useDispatch();
 
   const startLogin = async( {email, password} ) => {
@@ -14,6 +16,7 @@ export const useAuthStore = () => {
 
     try { 
       const { data } = await formotexApi.post('/auth/login', { email, password });
+
 
       localStorage.setItem('token', data.token );
       localStorage.setItem('token-init-date', new Date().getTime() );
@@ -74,6 +77,7 @@ export const useAuthStore = () => {
     console.log('Logout pasa por aqui');
     
     dispatch( onLogout() );
+    dispatch( clearProducts() );  // Limpia los productos
   }
 
 

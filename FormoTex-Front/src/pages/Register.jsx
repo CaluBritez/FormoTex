@@ -1,6 +1,7 @@
 import './css/Register.css'
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { useForm } from '../hooks/useForm.js';
 import {useAuthStore} from '../hooks/useAuthStore.js';
@@ -29,6 +30,7 @@ export const Register = () => {
     }
     startRegister({ name: name, email: email, password: password });
   }
+  
   useEffect(() => {
     if(errorMessage !== undefined){
       Swal.fire('Error al intentar registrar', errorMessage, 'error')
@@ -42,7 +44,9 @@ export const Register = () => {
         <div className='box-main-login-register'>
 
           <div className='box-logo'>
-            <h2>FormoTex</h2>
+            <Link to="/auth/login">
+              <h2>FormoTex</h2>
+            </Link>
           </div>
           <div className='div-box-form'>
             <h3>Registrarse</h3>

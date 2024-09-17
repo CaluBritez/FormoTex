@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import './css/Login.css'
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 import { useForm } from '../hooks/useForm.js';
 import {useAuthStore} from '../hooks/useAuthStore.js';
@@ -34,7 +35,9 @@ export const Login = () => {
       <div id='box-body-main'>
         <div id='box-main-login'>
           <div id='box-logo'>
-            <h2>FormoTex</h2>
+            <Link to="/auth/login">
+              <h2>FormoTex</h2>
+            </Link>
           </div>
           <div id='box-form'>
             <form id='form-login' action="" onSubmit={loginSubmit}>
@@ -59,7 +62,7 @@ export const Login = () => {
                 />
               </div>
               <div id='box-registrarse'>
-                <p>¿No tienes cuenta? <a href="/register">Crear cuenta</a></p>
+                <p>¿No tienes cuenta? <Link to="/auth/register">Crear cuenta</Link></p>
                 
               </div>
               <div id='box-form-button'>

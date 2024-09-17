@@ -47,6 +47,10 @@
 #box-logo h2{
   margin: 0;
 }
+#box-logo a{
+  text-decoration: none;
+  color: #F6DEB8;
+}
 #box-form {
   width: 100%;
   height: auto;

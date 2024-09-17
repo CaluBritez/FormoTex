@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 import formotexApi from '../api/formotexApi.js';
+import { useDispatch } from 'react-redux';
+import {showProducts} from '../store/product/productSlice.js';
 
 export const useShowProducts = () => {
-    
-    const [products, setProducts] = useState([]);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
+
                 const { data } = await formotexApi.get('/product/getProducts');
-                setProducts(data);
+                dispatch(showProducts(data));
+
             } catch (error) {
                 console.error(error);
             }
         };
 
         fetchProducts();
-    }, []); // El array vacío asegura que el efecto solo se ejecute una vez.
+    }, []);
 
-    return { products };
 };

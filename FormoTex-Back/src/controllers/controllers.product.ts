@@ -14,7 +14,11 @@ export const crearProducto = async(req: Request, res: Response) => {
       { 
         ok: true,
         name: product.name,
-        description: product.description
+        code_product: product.code_product,
+        description: product.description,
+        state: product.state,
+        starting_date: product.starting_date,
+        store: product.store
       });
     
   } catch (error) {

@@ -52,7 +52,6 @@
     justify-content: flex-start;
     align-items: center;
     margin-top: 1rem;
-    padding-top: 1rem;
     padding-bottom: 1rem;
 }
 #box-product {
@@ -61,6 +60,7 @@
     border: 2px solid black;
     border-radius: 5px;
     margin-left: 1rem;
+    margin-top: 1rem;
     box-shadow: 0px 4px 10px rgba(246, 222, 184, 0.8); /* Sombra con color #F6DEB8 */
     background-color: #F6DEB8;
 }
