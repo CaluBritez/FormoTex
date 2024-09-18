@@ -68,3 +68,29 @@ export const eliminarProducto = async(req: Request, res: Response) => {
     res.status(500).json({ message: 'Error al eliminar el producto' });
   }
 };
+
+// -------  EDITAR PRODUCTO  ---------------
+export const editarProducto = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    // Buscamos el producto por su ID
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ ok: false, message: 'Producto no encontrado' });
+    }
+
+    // Actualizamos los campos del producto con los datos que vienen en el body de la petición
+    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
+
+    res.status(200).json({
+      ok: true,
+      message: 'Producto actualizado correctamente',
+      product: updatedProduct, // Devolvemos el producto actualizado
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ ok: false, message: 'Error al actualizar el producto' });
+  }
+};

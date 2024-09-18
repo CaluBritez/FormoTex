@@ -1,7 +1,6 @@
 import './css/Home.css'
 import { useState, useEffect } from 'react';
 
-import { IoIosClose } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -34,6 +33,8 @@ export const Home = () => {
   const dispatch = useDispatch();
   
   const [abrirModal, setAbrirModal] = useState(false);
+  const [modalEditProduct, setModalEditProduct] = useState(false);
+
 
   const { name, code_product, description, state, starting_date, store, onInputChange } = useForm(initialProductForm);
 
@@ -162,6 +163,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
+
+      
   
     </>
   )
