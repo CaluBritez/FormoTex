@@ -45,3 +45,26 @@ export const mostrarProductos = async(req: Request, res: Response) => {
     res.status(500).json({ message: 'Error al obtener los productos' });
   }
 };
+
+// -------  ELIMINAR PRODUCTO  ---------------
+export const eliminarProducto = async(req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ ok: false, message: 'Producto no encontrado' });
+    }
+
+    await Product.findByIdAndDelete(id);
+    
+    res.status(200).json({ 
+      ok: true,
+      message: 'Producto eliminado correctamente'
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error al eliminar el producto' });
+  }
+};

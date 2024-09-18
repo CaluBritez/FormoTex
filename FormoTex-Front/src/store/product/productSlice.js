@@ -17,9 +17,12 @@ export const productSlice = createSlice({
       state.userState = 'not-authenticated'
       state.products = []
       state.errorMessage = undefined
+    },
+    deleteProductRedux: (state, { payload }) => {
+      // Filtra los productos y elimina el que coincide con el ID pasado en payload
+      state.products = state.products.filter(product => product._id !== payload);
     }
   }
 })
 
-// Action creators are generated for each case reducer function
-export const { showProducts, clearProducts } = productSlice.actions
+export const { showProducts, clearProducts, deleteProductRedux } = productSlice.actions

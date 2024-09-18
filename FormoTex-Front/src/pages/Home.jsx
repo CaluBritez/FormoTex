@@ -1,10 +1,14 @@
 import './css/Home.css'
 import { useState, useEffect } from 'react';
+
 import { IoIosClose } from "react-icons/io";
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+
 import { useForm } from '../hooks/useForm.js';
 
 import { useAuthStore } from '../hooks/useAuthStore.js';
-import { createProductForm } from '../hooks/useProductStore.js';
+import { useProductActions } from '../hooks/useProductStore';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { showProducts } from '../store/product/productSlice.js';
@@ -33,6 +37,9 @@ export const Home = () => {
 
   const { name, code_product, description, state, starting_date, store, onInputChange } = useForm(initialProductForm);
 
+  // Usa el hook personalizado para manejar las acciones de producto
+  const { createProductForm, deleteProduct } = useProductActions();
+
   const createProductSubmit = async(event) => {
     event.preventDefault();
     try {
@@ -45,6 +52,9 @@ export const Home = () => {
       console.log(error);
     }
   }
+  const handleDelete = async (id) => {
+    await deleteProduct(id); // Llama a la función de eliminación
+  };
 
   return (
     <>
@@ -71,6 +81,10 @@ export const Home = () => {
                         <p>Estado: {product.state}</p>
                         <p>Fecha de adquisición: {new Date(product.starting_date).toLocaleDateString()}</p>
                         <p>Ubicación: {product.store}</p>
+                        <div id='box-acciones'>
+                          <a ><FaEdit /></a>
+                          <a onClick={() => handleDelete(product._id)}><MdDeleteForever /></a>
+                        </div>
                       </div>
                   ))
                 )
