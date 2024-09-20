@@ -94,3 +94,25 @@ export const editarProducto = async (req: Request, res: Response) => {
     res.status(500).json({ ok: false, message: 'Error al actualizar el producto' });
   }
 };
+// -------  OBTENER PRODUCTO POR ID  ---------------
+export const obtenerProductoPorId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    // Buscamos el producto por su ID
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ ok: false, message: 'Producto no encontrado' });
+    }
+
+    // Devolvemos la información del producto encontrado
+    res.status(200).json({
+      ok: true,
+      product
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ ok: false, message: 'Error al obtener el producto' });
+  }
+};
