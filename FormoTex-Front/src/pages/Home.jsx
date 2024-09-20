@@ -22,12 +22,12 @@ const initialProductForm = {
   store: '',
 };
 const initialProductFormAdm = {
-  name: '',
-  code_product: '',
-  description: '',
-  state: '',
-  starting_date: '',
-  store: '',
+  nameAdm: '',
+  code_productAdm: '',
+  descriptionAdm: '',
+  stateAdm: '',
+  starting_dateAdm: '',
+  storeAdm: '',
 };
 
 export const Home = () => {
@@ -48,7 +48,7 @@ export const Home = () => {
 
 
   const { name, code_product, description, state, starting_date, store, onInputChange } = useForm(initialProductForm);
-  const { nameAdm, code_productAdm, descriptionAdm, stateAdm, starting_dateAdm, storeAdm, onInputChange:onInputChangeAdm } = useForm(initialProductFormAdm);
+  const { nameAdm, code_productAdm, descriptionAdm, stateAdm, starting_dateAdm, storeAdm, onInputChange:onInputChangeAdm, setFormState  } = useForm(initialProductFormAdm);
 
   // Usa el hook personalizado para manejar las acciones de producto
   const { createProductForm, deleteProduct, editProductAdm } = useProductActions();
@@ -68,37 +68,53 @@ export const Home = () => {
   const handleDelete = async (id) => {
     await deleteProduct(id); // Llama a la función de eliminación
   };
+
   const openModalEdit = async(id) => {
     setIsLoadingProduct(true);
     const product = await products.find(product => product._id === id);
-    console.log('Product desde Redux:', product);
-
-    setProductData(product);
-
-    useEffect(() => {
-      console.log('ProductData UseState:', productData);
-      setIsLoadingProduct(false);
-      setModalEditProduct(true);
+    if (product) {
+      setProductData(product);
       setIdEditProduct(id);
-    }, [productData])
+    }
+    setIsLoadingProduct(false);  // Cuando finaliza la carga de datos
+    console.log('Product desde Redux:', product);
+  };
     
-      /*
+  
       // Actualiza el formulario con los datos del producto
-      onInputChangeAdm({ target: { name: 'nameAdm', value: product.name || '' } });
-      onInputChangeAdm({ target: { name: 'code_productAdm', value: product.code_product || '' } });
-      onInputChangeAdm({ target: { name: 'descriptionAdm', value: product.description || '' } });
-      onInputChangeAdm({ target: { name: 'stateAdm', value: product.state || '' } });
+      
 
-      const validStartingDate = product.starting_date ? new Date(product.starting_date) : '';
+    
+  useEffect(() => {
+    
+    if (productData) {
+
+      const validStartingDate = productData.starting_date ? new Date(productData.starting_date) : '';
       const formattedDate = validStartingDate ? validStartingDate.toISOString().split('T')[0] : '';
+
+      setFormState({
+        nameAdm: productData.name || '',
+        code_productAdm: productData.code_product || '',
+        descriptionAdm: productData.description || '',
+        stateAdm: productData.state || '',
+        starting_dateAdm: formattedDate || '',
+        storeAdm: productData.store || '',
+      })
+      
 
       console.log('Fecha formateada:', formattedDate);
 
-      onInputChangeAdm({ target: { name: 'starting_dateAdm', value: formattedDate || '' } });
-      onInputChangeAdm({ target: { name: 'storeAdm', value: product.store || '' } });
+      
+      // Solo abrimos el modal si productData está cargado
+      setModalEditProduct(true);
+      console.log('ProductData UseState:', productData);
+      
+    }
+  }, [productData])
 
-      */
-  };
+  useEffect(() => {
+    console.log({ nameAdm });
+  }, [nameAdm, productData])
 
   const editProductSubmit = async(event) => {
     event.preventDefault();
@@ -111,6 +127,8 @@ export const Home = () => {
       console.log(error);
     }
   };
+
+  
 
   return (
     <>

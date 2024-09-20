@@ -10,6 +10,7 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
     }, [ formState ])
 
     useEffect(() => {
+        console.log("Reseteando form...")
         setFormState( initialForm );
     }, [ initialForm ])
     
@@ -23,13 +24,15 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
         return true;
     }, [ formValidation ])
 
-
+    console.log({ formState })
     const onInputChange = ({ target }) => {
         const { name, value } = target;
+        console.log("Setting...", name, value);
         setFormState({
             ...formState,
             [ name ]: value
         });
+        formState;
     }
 
     const onResetForm = () => {
@@ -56,6 +59,7 @@ export const useForm = ( initialForm = {}, formValidations = {}) => {
         formState,
         onInputChange,
         onResetForm,
+        setFormState,
 
         ...formValidation,
         isFormValid
