@@ -57,6 +57,8 @@ export const useAuthStore = () => {
   // Chekear autenticación
   const checkAuthToken = async() => {
     const token = localStorage.getItem('token');
+    console.log('se activo checking');
+    
     if ( !token ) return dispatch( onLogout() );
     try {
 
